@@ -7,6 +7,7 @@ const IPv4NETWORK_PATTERN_2OCT = /^(\d+)\.(\d+)\/(\d+)$/;
 const IPv4NETWORK_PATTERN_3OCT = /^(\d+)\.(\d+)\.(\d+)\/(\d+)$/;
 const IPv4NETWORK_PATTERN_4OCT = /^(\d+)\.(\d+)\.(\d+)\.(\d+)\/(\d+)$/;
 const IPv4NETWORK_PATTERN_MASK = /^(\d+)\.(\d+)\.(\d+)\.(\d+)\D{1,5}(\d+)\.(\d+)\.(\d+)\.(\d+)$/;
+const IPv4NETWORK_PATTERN_HOST = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/;
 
 function isLsbSet(x) {
     return (x & 1) === 1;
@@ -145,7 +146,13 @@ class IPv4Network {
             return new IPv4Network(IPv4Network.fromOctets(a, b, c, d), IPv4Network.toMasklen(IPv4Network.fromOctets(e, f, g, h)));
         }
 
-        throw new Error('not an IPv4 subnet: ' + s + ' (must look like e.g. 192.0.2/24)');
+        m = s.match(IPv4NETWORK_PATTERN_HOST);
+        if (m) {
+            let [a, b, c, d] = m.slice(1).map(x => parseInt(x));
+            return new IPv4Network(IPv4Network.fromOctets(a, b, c, d), 32);
+        }
+
+        throw new Error('"' + s + '" is not an IPv4 subnet (must look like e.g. 192.0.2/24)');
     }
 
     static coalesce(nets) {
