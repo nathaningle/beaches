@@ -6,6 +6,7 @@ var outputPreElem;
 var errDivElem;
 var errPElem;
 var statsElem;
+var copyElem;
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -22,12 +23,21 @@ function handleSubmit(e) {
 
         outputPreElem.textContent = aggNets.join('\n');
         statsElem.textContent = ' (' + inputNetCount.toString() + " → " + aggNets.length.toString() + ')';
+        copyElem.hidden = false;
     } catch (error) {
         outputPreElem.textContent = '';
         errPElem.textContent = error.message;
         errDivElem.hidden = false;
         statsElem.textContent = '';
+        copyElem.hidden = true;
     }
+}
+
+function handleCopy(e) {
+    navigator.clipboard.writeText(outputPreElem.textContent).then(
+        () => console.debug('Wrote to clipboard with clipboard.writeText()'),
+        () => console.debug('Failed to write to clipboard with clipboard.writeText()')
+    );
 }
 
 window.addEventListener('DOMContentLoaded', e => {
@@ -36,7 +46,10 @@ window.addEventListener('DOMContentLoaded', e => {
     inputNets = document.getElementById('nets');
     outputPreElem = document.getElementById('outputPre');
     errDivElem = document.getElementById('errorDiv');
+    errDivElem.hidden = true;
     errPElem = document.getElementById('errorP');
     statsElem = document.getElementById('stats');
-    errDivElem.hidden = true;
+    copyElem = document.getElementById('copy');
+    copyElem.addEventListener('click', handleCopy);
+    copyElem.hidden = true;
 });

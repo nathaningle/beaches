@@ -1,8 +1,16 @@
+body {
+    font-family: sans-serif;
+}
+
+form {
+    margin: 1em;
+}
+
 textarea {
     width: 16em;
     height: 20ex;
     display: block;
-    margin: 1em;
+    margin: 1em 2em;
 }
 
 div#errorDiv {
