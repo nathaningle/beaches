@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <!--
+    Subnet aggregator
+    Nathan Ingle <elgni.nahtan@gmail.com>
+    https://github.com/nathaningle/beaches
+    July 2021
+  -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86">
+    <title>Subnet aggregator</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJ0lEQVQI12Nsev6DARtgYsABcEqwHN3fgV1C4N8XrBKM3+/2UMlyAEz3COI5wFJCAAAAAElFTkSuQmCC">
+    <link rel="stylesheet" href="beaches.css">
+    <script src="IPv4Network.js"></script>
+    <script src="beaches.js"></script>
+  </head>
+
+  <body>
+    <h1>Subnet aggregator</h1>
+    <form method="post">
+      <label for="nets">Enter IPv4 subnets (e.g. 192.168.1/24), one per line:</label>
+      <textarea id="nets" name="nets">192.168.1/24</textarea>
+      <input type="submit" value="Aggregate">
+    </form>
+    <div id="outputDiv">
+      <hr>
+      <p>Aggregated subnets<span id="stats"></span>:</p>
+      <p><button id="copy">Copy</button></p>
+      <pre id="outputPre"></pre>
+      <div id="errorDiv">
+        <svg viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon fill="red" points="-15.307,36.955 15.307,36.955 36.955,15.307 36.955,-15.307 15.307,-36.955 -15.307,-36.955 -36.955,-15.307 -36.955,15.307" />
+          <text fill="white" textLength="60" x="-30" y="6.5" transform="scale(1 2)">STOP</text>
+        </svg>
+        <p id="errorP"></p>
+      </div>
+    </div>
+  </body>
+</html>
