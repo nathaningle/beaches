@@ -21,6 +21,14 @@
     <form method="post">
       <label for="nets">Enter IPv4 subnets (e.g. 192.168.1/24), one per line:</label>
       <textarea id="nets" name="nets">192.168.1/24</textarea>
+
+      <div id="masklen_div">
+        <label>Maximum subnet mask length:
+          <input type="range" id="max_masklen" name="max_masklen" value="32" max="32">
+          /<span id="max_masklen_pos">32</span>
+        </label>
+      </div>
+
       <input type="submit" value="Aggregate">
     </form>
     <div id="outputDiv">

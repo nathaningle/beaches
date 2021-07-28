@@ -59,6 +59,15 @@ class IPv4Network {
         return this.netaddr <= that.netaddr && this.broadcast >= that.broadcast;
     }
 
+    // Create a new IPv4Address having masklen no longer than new_masklen.
+    clampMasklen(new_masklen) {
+        if (this.masklen <= new_masklen)
+            return new IPv4Network(this.netaddr, this.masklen);
+
+        const newMask = IPv4Network.makeNetmask(new_masklen);
+        return new IPv4Network((this.netaddr & newMask) >>> 0, new_masklen);
+    }
+
     supernet() {
         if (this.masklen === 0)
             throw new Error('unable to make a supernet for ' + this.toString());
@@ -107,6 +116,16 @@ class IPv4Network {
             throw new Error('non-contiguous mask: ' + IPv4Network.toOctets(mask).join('.'));
 
         return 32 - masklen;
+    }
+
+    // Make a 32-bin unsigned integer network mask from a mask length.
+    static makeNetmask(masklen) {
+        if (masklen < 0 || masklen > 32)
+            throw new Error('mask length out of range: ' + masklen.toString() + ' (must be 0-32)');
+        if (masklen == 0)
+            return 0;
+
+        return (ALL_ONES << (32 - masklen)) >>> 0;
     }
 
     static parse(s) {

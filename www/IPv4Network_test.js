@@ -17,6 +17,12 @@ QUnit.module('IPv4Network', function() {
         assert.deepEqual(IPv4Network.toOctets(0xffffffff), [255, 255, 255, 255], '0xffffffff == [255, 255, 255, 255]');
     });
 
+    QUnit.test('makeNetmask', function(assert) {
+        assert.equal(IPv4Network.makeNetmask( 0), 0x00000000, '/0 == 0x00000000');
+        assert.equal(IPv4Network.makeNetmask(16), 0xffff0000, '/16 == 0xffff0000');
+        assert.equal(IPv4Network.makeNetmask(32), 0xffffffff, '/32 == 0xffffffff');
+    });
+
     QUnit.test('hostmask', function(assert) {
         assert.equal((new IPv4Network(0,  0)).hostmask, 0xffffffff, '/0 == 0xffffffff');
         assert.equal((new IPv4Network(0, 16)).hostmask, 0x0000ffff, '/16 == 0x0000ffff');

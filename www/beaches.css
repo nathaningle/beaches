@@ -13,6 +13,14 @@ textarea {
     margin: 1em 2em;
 }
 
+input#max_masklen {
+    vertical-align: middle;
+}
+
+div#masklen_div {
+    margin: 1ex 0;
+}
+
 div#errorDiv {
     border: medium solid red;
     background-color: hsl(0, 100%, 95%);
