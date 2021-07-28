@@ -24,7 +24,7 @@ function updateResult() {
         let aggNets = IPv4Network.coalesce(nets)
             .map(net => net.toString())
 
-        outputPreElem.textContent = aggNets.join('\n');
+        outputPreElem.textContent = aggNets.join('\n') + '\n';
         statsElem.textContent = ' (' + inputNetCount.toString() + " → " + aggNets.length.toString() + ')';
         copyElem.hidden = false;
         resultValid = true;
