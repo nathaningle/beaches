@@ -66,6 +66,12 @@ QUnit.module('IPv4Network', function() {
         assert.deepEqual(IPv4Network.parse('255.255.255.255'), new IPv4Network(0xffffffff, 32));
     });
 
+    QUnit.test('parse hosts with whitespace', function(assert) {
+        assert.deepEqual(IPv4Network.parse('    0.0.0.0'), new IPv4Network(0x00000000, 32));
+        assert.deepEqual(IPv4Network.parse('192.168.1.1    '), new IPv4Network(0xc0a80101, 32));
+        assert.deepEqual(IPv4Network.parse('  255.255.255.255  '), new IPv4Network(0xffffffff, 32));
+    });
+
     QUnit.test('parse fail with host bits set', function(assert) {
         assert.throws(function() { IPv4Network.parse('172.17/15') });
     });

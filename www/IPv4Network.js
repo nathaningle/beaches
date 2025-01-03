@@ -128,7 +128,9 @@ class IPv4Network {
         return (ALL_ONES << (32 - masklen)) >>> 0;
     }
 
-    static parse(s) {
+    static parse(ipstr) {
+        const s = ipstr.trim();
+
         let m = s.match(IPv4NETWORK_PATTERN_1OCT);
         if (m) {
             let [a, masklen] = m.slice(1).map(x => parseInt(x));
